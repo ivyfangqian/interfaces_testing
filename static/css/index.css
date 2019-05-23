@@ -1,0 +1,42 @@
+body {
+    background-image: url("../image/bg-intro.jpg");
+    background-size: cover;
+    color: whitesmoke;
+}
+
+div.content {
+    margin-top: 30%;
+}
+
+span.logindes {
+    margin-left: 20px;
+}
+
+p {
+    font-size: 18px;
+    margin-left: 5%;
+    margin-top: 15px;
+}
+
+.regbtn {
+    font-size: 18px;
+    margin-left: 10%;
+}
+
+.partingline {
+    background: lightgray;
+    height: 3px;
+    width: 100%;
+}
+
+input {
+    margin-top: 20px;
+}
+
+#loginbtn {
+    font-size: 18px;
+}
+
+.leftcontent {
+    margin-top: 20px;
+}
