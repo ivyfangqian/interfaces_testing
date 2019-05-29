@@ -1,4 +1,47 @@
-{% load static %}
+{% extends "index_template.html" %}
+{% block description %}
+    <div>
+        <span class="h1">接口测试服务平台</span>
+        <span class="h3 login_des">用户登录</span>
+    </div>
+    <div>
+        <p style="margin-left: 10%;">首次访问接口服务平台请先注册用户</p>
+        <p>如果未注册，请点击下方注册按钮进行注册</p>
+        <a href="/api/index/" class="btn btn-success regbtn" name="login">登 录</a>
+        <a href="/api/signup/" class="btn btn-success regbtn" name="register">注&nbsp;册</a>
+    </div>
+
+{% endblock %}
+
+{% block user_form %}
+    <div>
+        <div class="h2">用户登录</div>
+
+        <div class="h4">填写用户信息，完成登录</div>
+    </div>
+    <div class="partingline"></div>
+    <div>
+        <form method="post" action="/api/login/">
+            <div class="form-group">
+                <input type="text" class="form-control" id="username" placeholder="用户名" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="password" placeholder="密码" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" id="loginbtn" class="btn btn-success btn-block">登&nbsp;&nbsp;录</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+
+    alert(123);
+
+{% endblock %}
+<!--{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,3 +95,5 @@
 <script rel="script" href="{% static 'js/jquery-3.3.1.min.js' %}"/>
 <script rel="script" href="{% static 'js/bootstrap.min.js' %}"/>
 </html>
+-->
+

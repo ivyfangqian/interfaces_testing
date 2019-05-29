@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>接口测试系统</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.7.2-web/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <div class="row content">
+        <div class="col-lg-7 col-md-7 col-sm-7 leftcontent">
+            {% block description %}
+            {% endblock %}
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-5 rightcontent">
+            {% block user_form %}
+            {% endblock %}
+
+        </div>
+    </div>
+</div>
+</body>
+<script rel="script" href="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script rel="script" href="{% static 'js/bootstrap.min.js' %}"></script>
+<script type="text/javascript">
+    {% block js %}
+    {% endblock %}
+</script>
+</html>
