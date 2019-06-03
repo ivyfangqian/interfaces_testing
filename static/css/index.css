@@ -5,7 +5,7 @@ body {
 }
 
 div.content {
-    margin-top: 30%;
+    margin-top: 20%;
 }
 
 span.logindes {
@@ -39,4 +39,8 @@ input {
 
 .leftcontent {
     margin-top: 20px;
+}
+
+small {
+    font-size: 16px
 }
