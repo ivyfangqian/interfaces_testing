@@ -21,14 +21,15 @@
     <div class="partingline"></div>
     <div>
         <form method="post" action="/api/login/">
-            <div class="form-group">
+            <div class="form-group" id="username_div">
                 <input type="text" class="form-control" id="username" name="username" placeholder="用户名" required>
             </div>
             <div class="form-group">
                 <input type="password" class="form-control" name="password" id="password" placeholder="密码" required>
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="确认密码" required>
+                <input type="password" class="form-control" id="password_confirm" name="password_confirm"
+                       placeholder="确认密码" required>
             </div>
             <div class="form-group">
                 <input type="email" class="form-control" id="email" name="email" placeholder="邮箱" required>
@@ -42,91 +43,103 @@
 {% endblock %}
 
 {% block js %}
-    $("form").bootstrapValidator({
-        live: "enabled",
+    <script type="text/javascript">
+        $("form").bootstrapValidator({
+            live: "enabled",
 
-{#        feedbackIcons: {#}
-{#            valid: 'fa fa-check',#}
-{#            invalid: 'fa fa-times',#}
-{#            validating: 'fa fa-hourglass-start'#}
-{#        },#}
+            {#        feedbackIcons: {#}
+            {#            valid: 'fa fa-check',#}
+            {#            invalid: 'fa fa-times',#}
+            {#            validating: 'fa fa-hourglass-start'#}
+            {#        },#}
 
-        feedbackIcons: {
-            valid: 'check',
-            invalid: 'close',
-            validating: 'hourglass-half'
-        },
+            feedbackIcons: {
+                valid: 'check',
+                invalid: 'close',
+                validating: 'hourglass-half'
+            },
 
-        fields: {
-            username:{
-                threshold: 6,
-                validators:{
-                    notEmpty:{
-                        message: "请填写用户名"
-                    },
-                    stringLength: {
-                        min: 5,
-                        max: 12,
-                        message: "用户名长度为5-12位"
-                    },
-                    regexp: {
-                        regexp: /^[a-zA-Z0-9_]*$/,
-                        message: "用户名由字母、数字、下划线组成"
-                    },
-                    remote: {
-                        url: '/api/check_username',
-                        message: "对不起，用户名已存在",
-                        data: function(validator){
-                                return {
-                                    username: $("#username").val()
-                                }
+            fields: {
+                username: {
+                    threshold: 6,
+                    validators: {
+                        notEmpty: {
+                            message: "请填写用户名"
+                        },
+                        stringLength: {
+                            min: 5,
+                            max: 12,
+                            message: "用户名长度为5-12位"
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_]*$/,
+                            message: "用户名由字母、数字、下划线组成"
+                        },
+                        {#                    remote: {#}
+                        {#                        url: '/api/check_username',#}
+                        {#                        message: "对不起，用户名已存在",#}
+                        {#                        data: function(validator){#}
+                        {#                                return {#}
+                        {#                                    username: $("#username").val()#}
+                        {#                                }#}
+                        {#                        }#}
+                        {#                    }#}
+                    }
+                },
+                password: {
+                    threshold: 6,
+                    validators: {
+                        notEmpty: {
+                            message: "请填写密码"
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 18,
+                            message: "密码长度为6-18位"
+                        }
+                    }
+                },
+                password_confirm: {
+                    threshold: 6,
+                    validators: {
+                        notEmpty: {
+                            message: "请填写确认密码"
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 18,
+                            message: "密码长度为6-18位"
+                        },
+                        identical: {
+                            field: "password",
+                            message: "确认密码与密码不一致"
+                        }
+                    }
+                },
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: "邮箱不能为空"
+                        },
+                        emailAddress: {
+                            message: "邮箱地址错误"
                         }
                     }
                 }
-            },
-            password: {
-                threshold: 6,
-                validators:{
-                    notEmpty:{
-                        message: "请填写密码"
-                    },
-                    stringLength: {
-                        min: 6,
-                        max: 18,
-                        message: "密码长度为6-18位"
-                    }
-                }
-            },
-            password_confirm: {
-                threshold: 6,
-                validators:{
-                    notEmpty:{
-                        message: "请填写确认密码"
-                    },
-                    stringLength: {
-                        min: 6,
-                        max: 18,
-                        message: "密码长度为6-18位"
-                    },
-                    identical: {
-                        field: "password",
-                        message: "确认密码与密码不一致"
-                    }
-                }
-            },
-            email: {
-                validators: {
-                    notEmpty: {
-                        message: "邮箱不能为空"
-                    },
-                    emailAddress: {
-                        message: "邮箱地址错误"
-                    }
-                }
             }
-        }
-   })
+        });
 
+        $("#username").blur(function () {
+            $("#username_error").remove()
+
+            $.get("/api/check_username/?username=" + $("#username").val(), function (data) {
+                if (data.flag == false) {
+                    $("#username_div").addClass("has-error");
+                    $("#username_div").append("<label id=\"username_error\" class=\"control-label\" for=\"inputError1\">" + data.msg + "</label>")
+                }
+            });
+        });
+    </script>
 {% endblock %}
 
 

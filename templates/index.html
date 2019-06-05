@@ -37,66 +37,79 @@
 {% endblock %}
 
 {% block js %}
-
-    $("form").bootstrapValidator({
-        live: 'enabled',
-{#        feedbackIcons: {#}
-{#            valid: 'glyphicon glyphicon-ok',#}
-{#            invalid: 'glyphicon glyphicon-remove',#}
-{#            validating: 'glyphicon glyphicon-refresh'#}
-{#        },#}
-        feedbackIcons: {
-            valid: 'check',
-            invalid: 'close',
-            validating: 'hourglass-half'
-        },
-        fields: {
-            username:{
-                threshold: 5,
-                validators:{
-                    notEmpty:{
-                        message: "请填写用户名"
-                    },
-                    stringLength: {
-                        min: 5,
-                        max: 12,
-                        message: "用户名长度为5-12位"
-                    },
-                    regexp: {
-                        regexp: /^[a-zA-Z0-9_]*$/,
-                        message: "用户名由字母、数字、下划线组成"
-                    }
-                }
+    <script type="text/javascript">
+        $("form").bootstrapValidator({
+            live: 'enabled',
+            {#        feedbackIcons: {#}
+            {#            valid: 'glyphicon glyphicon-ok',#}
+            {#            invalid: 'glyphicon glyphicon-remove',#}
+            {#            validating: 'glyphicon glyphicon-refresh'#}
+            {#        },#}
+            feedbackIcons: {
+                valid: 'check',
+                invalid: 'close',
+                validating: 'hourglass-half'
             },
-            password: {
-                threshold: 6,
-                validators:{
-                    notEmpty:{
-                        message: "请填写密码"
-                    },
-                    stringLength: {
-                        min: 6,
-                        max: 18,
-                        message: "密码长度为6-18位"
+            fields: {
+                username: {
+                    threshold: 5,
+                    validators: {
+                        notEmpty: {
+                            message: "请填写用户名"
+                        },
+                        stringLength: {
+                            min: 5,
+                            max: 12,
+                            message: "用户名长度为5-12位"
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_]*$/,
+                            message: "用户名由字母、数字、下划线组成"
+                        }
+                    }
+                },
+                password: {
+                    threshold: 6,
+                    validators: {
+                        notEmpty: {
+                            message: "请填写密码"
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 18,
+                            message: "密码长度为6-18位"
+                        }
                     }
                 }
             }
-        }
-    });
+        });
 
-    $("#loginbtn").click(function(){
-            var username = $("#username").val();
-            var password = $("#password").val();
-            alert("username:"+username+"  password:"+password)
-            $.post("/api/api_login/",
+
+        $("#loginbtn").click(function () {
+                var username = $("#username").val();
+                var password = $("#password").val();
+
+                $.post("/api/api_login/",
                     {"username": username, "password": password},
-                    function(data){
-                        alert(data.flag);
+                    function (data) {
+                        flag = data.flag;
+                        if (flag == 0) {
+                            window.location.href = "http://www.baidu.com";
+                        } else {
+                            alert(data.msg);
+                        }
                     }
-            );
-        }
-    );
+                );
+            }
+        );
 
+        {#    给按钮绑定回车提交事件 #}
+        $('#loginbtn').bind('keydown', function (event) {
+            if (event.keyCode == "13") {
+                $("#loginbtn").click();
+            }
+        });
+    </script>
 {% endblock %}
 <!--{% load static %}
 <!DOCTYPE html>

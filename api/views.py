@@ -20,7 +20,14 @@ def signup(request):
 
 
 def check_username(request):
-    return JsonResponse({"valid": True})
+    username = request.GET.get("username")
+    if not username:
+        return HttpResponse(content_type="application/json", content=json.dumps({"flag": False, "msg": "用户名不能为空"}))
+    user = User.objects.filter(username=username)
+    if user.exists():
+        return HttpResponse(content_type="application/json", content=json.dumps({"flag": False, "msg": "用户名已存在"}))
+    else:
+        return HttpResponse(content_type="application/json", content=json.dumps({"flag": True, "msg": "恭喜你，用户名可用"}))
 
 
 def api_login(request):
@@ -41,6 +48,7 @@ def api_login(request):
     if not user.exists():
         return HttpResponse(content_type="application/json", content=json.dumps({"flag": 1, "msg": "用户名或密码错误"}))
     else:
+        print user, type(user), user[0]
         return HttpResponse(content_type="application/json",
                             content=json.dumps(
-                                {"flag": 0, "msg": "登录成功", "userid": user.get("id"), "username": user.get("username")}))
+                                {"flag": 0, "msg": "登录成功", "userid": user[0].id, "username": user[0].username}))
