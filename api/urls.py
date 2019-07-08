@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^login/', 'api.views.login'),
     url(r'^signup/', 'api.views.signup'),
     url(r"^check_username/", 'api.views.check_username'),
-    url(r"^api_login/", 'api.views.api_login')
+    url(r"^api_login/", 'api.views.api_login'),
+    url(r"^home/", 'api.views.home'),
 ]

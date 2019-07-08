@@ -19,6 +19,10 @@ def signup(request):
     return render(request, 'signup.html')
 
 
+def home(request):
+    return render(request, 'home.html')
+
+
 def check_username(request):
     username = request.GET.get("username")
     if not username:
