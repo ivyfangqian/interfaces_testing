@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>接口测试系统</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.7.2-web/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrapValidator.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+<div class="alert alert-danger" role="alert">{{ info }}</div>
+
+<script type="text/javascript">
+    setTimeout(function () {
+        window.location.href = "http://www.baidu.com";
+    }, 3000);
+
+
+</script>
+
+</body>
+</html>
